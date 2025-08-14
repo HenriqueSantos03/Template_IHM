@@ -5,12 +5,11 @@
 
 LGFX gfx;
 
-static const uint16_t screenWidth = SCREEN_WIDTH;
-static const uint16_t screenHeight = SCREEN_HEIGHT;
 static lv_disp_draw_buf_t draw_buf;
-static lv_color_t buf[screenWidth * screenHeight / 10];
+static lv_color_t buf[SCREEN_WIDTH * SCREEN_HEIGHT / 10];
 
-static uint8_t ihmState = IHM_RESET;
+static uint8_t ihmFirstEntry;
+static uint8_t ihmState;
 static unsigned long ihmTick = 0;
 static unsigned long ihmDelayTick = 0;
 
@@ -43,21 +42,15 @@ void initIhmControl() {
     gfx.setBrightness(255);  // Backlight máximo
     Serial.println("Display inicializado");
 
-    gfx.fillScreen(0xF800);  // Vermelho
-    Serial.println("Tela deve estar vermelha");
-    delay(2000);
-    gfx.fillScreen(0x0000);  // Preto
-    Serial.println("Tela deve estar preta");
-
     Serial.println("Inicializando LVGL...");
     lv_init();
-    lv_disp_draw_buf_init(&draw_buf, buf, NULL, screenWidth * screenHeight / 10);
+    lv_disp_draw_buf_init(&draw_buf, buf, NULL, SCREEN_WIDTH * SCREEN_HEIGHT / 10);
     Serial.println("Buffer LVGL inicializado");
 
     static lv_disp_drv_t disp_drv;
     lv_disp_drv_init(&disp_drv);
-    disp_drv.hor_res = screenWidth;
-    disp_drv.ver_res = screenHeight;
+    disp_drv.hor_res = SCREEN_WIDTH;
+    disp_drv.ver_res = SCREEN_HEIGHT;
     disp_drv.flush_cb = my_disp_flush;
     disp_drv.draw_buf = &draw_buf;
     lv_disp_drv_register(&disp_drv);

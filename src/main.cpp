@@ -9,12 +9,10 @@ void setup() {
     Serial.println("Iniciando setup...");
     initIhmControl();
     ihmTelaMainInit();
-    EventsInit();
     Serial.println("Setup concluído");
 }
 
 void loop() {
     vTaskIhmControl();
     ihmTelaMainTask();
-    EventsTask();
 }

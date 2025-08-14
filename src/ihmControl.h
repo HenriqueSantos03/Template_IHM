@@ -7,7 +7,7 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 480
-
+// Máquina de estados da IHM (controle de telas)
 enum {
     IHM_RESET,
     IHM_WAIT_CONTROL,

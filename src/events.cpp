@@ -6,11 +6,11 @@ static void button_event_handler(lv_event_t *e) {
     Serial.println("clique");
 }
 
-void EventsInit() {
+void eventsInit() {
     // Inicialização de eventos, se necessário
 }
 
-void EventsTask() {
+void eventsTask() {
     // Tarefas periódicas de eventos, se necessário
 }
 
