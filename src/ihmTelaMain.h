@@ -1,13 +1,19 @@
-//----------------------------------------------
-// ihmTelaMain.h (Copia de ihmDashboard.h)
-//----------------------------------------------
 #ifndef IHM_TELA_MAIN_H
 #define IHM_TELA_MAIN_H
+
+#include <lvgl.h>
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 480
 
+typedef struct {
+    lv_obj_t *container; // Container principal para os componentes
+    lv_obj_t *btn_1;     // Botão "Clique Aqui"
+    lv_obj_t *label;     // Label do botão
+} ui_t;
+
 void ihmTelaMainInit();
 void ihmTelaMainTask();
+void createMainUI(ui_t *ui);
 
 #endif
