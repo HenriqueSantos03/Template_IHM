@@ -15,7 +15,7 @@ enum {
     QTD_IHM_STATE
 };
 
-void initIhmControl();
-void vTaskIhmControl();
+void ihmControlInit();
+void ihmControlTask();
 
 #endif

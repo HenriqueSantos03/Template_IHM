@@ -1,7 +1,9 @@
 #include <Arduino.h>
 #include <lvgl.h>
+#include "versao.h"
 #include "LGFX_Custom.h"
 #include "ihmControl.h"
+#include "ihmTelaMain.h"
 
 LGFX gfx;
 
@@ -36,7 +38,9 @@ void my_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data) {
     }
 }
 
-void initIhmControl() {
+void ihmControlInit() {
+    String title = String("IHM TEMPLATE ") + String(VERSAO_FIRMWARE);
+
     Serial.println("Inicializando display...");
     gfx.begin();
     gfx.setBrightness(255);  // Backlight máximo
@@ -63,25 +67,35 @@ void initIhmControl() {
     lv_indev_drv_register(&indev_drv);
     Serial.println("Driver de toque registrado");
 
+    //Cria um label central com a versão
+    lv_obj_t *label = lv_label_create(lv_scr_act());
+    lv_label_set_text(label, title.c_str());
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+
     ihmTick = millis();
     ihmDelayTick = millis();
     ihmState = IHM_RESET;
 }
 
-void vTaskIhmControl() {
+void ihmControlTask() {
     if (millis() > (ihmTick + 250)) {
         ihmTick = millis();
 
         switch (ihmState) {
             case IHM_RESET:
                 if (millis() > (ihmDelayTick + 1500)) {
-                    ihmState = IHM_WAIT_CONTROL;
+                    ihmState = IHM_WAIT_CONTROL; 
                 }
                 break;
             case IHM_WAIT_CONTROL:
+                ihmFirstEntry = 0; // Reseta a flag de primeira entrada
                 ihmState = IHM_IDLE;
                 break;
             case IHM_IDLE:
+                if (ihmFirstEntry == 0) {
+                    ihmFirstEntry = 1; // Marca a primeira entrada
+                    ihmTelaMainInit(); // Inicializa a tela principal
+                }
                 // Estado ocioso, pronto para interações
                 break;
         }

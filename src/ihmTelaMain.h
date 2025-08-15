@@ -8,8 +8,8 @@
 
 typedef struct {
     lv_obj_t *container; // Container principal para os componentes
-    lv_obj_t *btn_1;     // Botão "Clique Aqui"
-    lv_obj_t *label;     // Label do botão
+    lv_obj_t *btn_1;     // Botão "Iniciar "
+    lv_obj_t *label_btn1;     // Label do botão
 } ui_t;
 
 void ihmTelaMainInit();

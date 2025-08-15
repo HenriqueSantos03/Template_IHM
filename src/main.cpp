@@ -1,18 +1,17 @@
 #include <Arduino.h>
 #include "ihmControl.h"
-#include "ihmTelaMain.h"
-#include "events.h"
+#include "masterControl.h"
+#include "UartTron.h"
 
 void setup() {
     Serial.begin(115200);
-    delay(2000);  // Aguardar Serial
-    Serial.println("Iniciando setup...");
-    initIhmControl();
-    ihmTelaMainInit();
-    Serial.println("Setup concluído");
+    uartTronInit();      // inicia a comunicação UART
+    ihmControlInit();    // inicializa a tela e a interface
+    masterControlInit(); 
 }
 
 void loop() {
-    vTaskIhmControl();
-    ihmTelaMainTask();
+    ihmControlTask();    // executa e atualiza a maquina de estados da IHM
+    uartTronTask();      // executa a tarefa de comunicação UART
+    masterControlTask(); // executa tarefas periódicas de controle mestre
 }

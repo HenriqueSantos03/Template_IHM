@@ -16,9 +16,9 @@ void createMainUI(ui_t *ui) {
     lv_obj_align(ui->btn_1, LV_ALIGN_CENTER, 0, 0);
 
     // Criar label do botão 1
-    ui->label = lv_label_create(ui->btn_1);
-    lv_label_set_text(ui->label, "Clique Aqui");
-    lv_obj_center(ui->label);
+    ui->label_btn1 = lv_label_create(ui->btn_1);
+    lv_label_set_text(ui->label_btn1, "Iniciar");
+    lv_obj_center(ui->label_btn1);
 
     // Registrar botão para eventos
     btn_1_event_cb(ui->btn_1);
