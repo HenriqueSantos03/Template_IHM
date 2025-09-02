@@ -5,13 +5,37 @@
 
 void createMainUI(ui_t *ui) {
     // Criar container principal
-    ui->container = lv_obj_create(lv_scr_act()); // Cria o container na tela ativa
-    lv_obj_set_size(ui->container, SCREEN_WIDTH, SCREEN_HEIGHT); 
-    lv_obj_align(ui->container, LV_ALIGN_TOP_LEFT, 0, 0);
-    lv_obj_set_style_bg_color(ui->container, lv_color_hex(0x000000), LV_PART_MAIN);
+    // Configurar a tela ativa (lv_scr_act) para ter fundo preto e evitar cantos brancos
+    lv_obj_set_style_bg_color(lv_scr_act(), lv_color_hex(0x000000), LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(lv_scr_act(), LV_OPA_COVER, LV_PART_MAIN);
+
+    // Criar o dashboard principal
+    ui->ui_telaMain_dashboard = lv_obj_create(lv_scr_act());
+    lv_obj_set_size(ui->ui_telaMain_dashboard, SCREEN_WIDTH, SCREEN_HEIGHT); // Usar dimensões exatas da tela
+    lv_obj_set_pos(ui->ui_telaMain_dashboard, 0, 0); // Posicionar exatamente na origem (0,0)
+    lv_obj_set_style_pad_all(ui->ui_telaMain_dashboard, 0, LV_PART_MAIN); // Remover qualquer padding
+    lv_obj_set_style_border_width(ui->ui_telaMain_dashboard, 0, LV_PART_MAIN); // Remover bordas
+    lv_obj_set_style_radius(ui->ui_telaMain_dashboard, 0, LV_PART_MAIN); // Remover bordas arredondadas
+    lv_obj_set_style_bg_opa(ui->ui_telaMain_dashboard, 0, LV_PART_MAIN | LV_STATE_DEFAULT); // Fundo transparente
+    lv_obj_set_scrollbar_mode(ui->ui_telaMain_dashboard, LV_SCROLLBAR_MODE_OFF); // Desativar barra de rolagem
+    lv_obj_clear_flag(ui->ui_telaMain_dashboard, LV_OBJ_FLAG_SCROLLABLE); // Desativar scroll
+
+    // Criar container principal
+    ui->ui_telaMain_container = lv_obj_create(ui->ui_telaMain_dashboard);
+    lv_obj_set_size(ui->ui_telaMain_container, SCREEN_WIDTH, SCREEN_HEIGHT); // Usar dimensões exatas da tela
+    lv_obj_set_pos(ui->ui_telaMain_container, 0, 0); // Posicionar exatamente na origem (0,0)
+    lv_obj_set_style_pad_all(ui->ui_telaMain_container, 0, LV_PART_MAIN); // Remover qualquer padding
+    lv_obj_set_style_border_width(ui->ui_telaMain_container, 0, LV_PART_MAIN); // Remover bordas
+    lv_obj_set_style_radius(ui->ui_telaMain_container, 0, LV_PART_MAIN); // Remover bordas arredondadas
+    lv_obj_set_style_bg_color(ui->ui_telaMain_container, lv_color_hex(0x000000), LV_PART_MAIN); // Fundo preto
+    lv_obj_set_style_bg_opa(ui->ui_telaMain_container, LV_OPA_COVER, LV_PART_MAIN); // Garantir opacidade total
+    lv_obj_set_scrollbar_mode(ui->ui_telaMain_container, LV_SCROLLBAR_MODE_OFF); // Desativar barra de rolagem
+    lv_obj_clear_flag(ui->ui_telaMain_container, LV_OBJ_FLAG_SCROLLABLE); // Desativar scroll
+    lv_obj_add_flag(ui->ui_telaMain_container, LV_OBJ_FLAG_EVENT_BUBBLE); // Evitar que o container capture eventos de scroll
+
 
     // Criar botão 1
-    ui->btn_1 = lv_btn_create(ui->container);
+    ui->btn_1 = lv_btn_create(ui->ui_telaMain_container);
     lv_obj_set_size(ui->btn_1, 200, 100);
     lv_obj_align(ui->btn_1, LV_ALIGN_CENTER, 0, 0);
 

@@ -7,13 +7,14 @@
 #define SCREEN_HEIGHT 480
 
 typedef struct {
-    lv_obj_t *container; // Container principal para os componentes
-    lv_obj_t *btn_1;     // Botão "Iniciar "
-    lv_obj_t *label_btn1;     // Label do botão
+    lv_obj_t *ui_telaMain_dashboard;    // Dashboard principal
+    lv_obj_t *ui_telaMain_container;    // Container principal para os componentes
+    lv_obj_t *btn_1;                    // Botão "Iniciar "
+    lv_obj_t *label_btn1;               // Label do botão
 } ui_t;
 
 void ihmTelaMainInit();
 void ihmTelaMainTask();
 void createMainUI(ui_t *ui);
 
-#endif
+#endif // IHM_TELA_MAIN_H
